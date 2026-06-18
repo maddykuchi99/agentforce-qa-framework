@@ -23,8 +23,8 @@ git commit -m "Initial commit: Agentforce QA Test Automation Framework"
 ### Step 3: Push to GitHub
 
 ```bash
-# Replace YOUR_USERNAME with your GitHub username
-git remote add origin https://github.com/YOUR_USERNAME/agentforce-qa-framework.git
+# Replace maddykuchi99 with your GitHub username
+git remote add origin https://github.com/maddykuchi99/agentforce-qa-framework.git
 git branch -M main
 git push -u origin main
 ```
@@ -60,7 +60,7 @@ In your repository main page:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/agentforce-qa-framework.git
+   git clone https://github.com/maddykuchi99/agentforce-qa-framework.git
    cd agentforce-qa-framework
    ```
 
@@ -135,5 +135,5 @@ sf org list
 
 ## Support
 
-- **Issues**: https://github.com/YOUR_USERNAME/agentforce-qa-framework/issues
-- **Discussions**: https://github.com/YOUR_USERNAME/agentforce-qa-framework/discussions
+- **Issues**: https://github.com/maddykuchi99/agentforce-qa-framework/issues
+- **Discussions**: https://github.com/maddykuchi99/agentforce-qa-framework/discussions

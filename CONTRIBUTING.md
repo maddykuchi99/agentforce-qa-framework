@@ -6,7 +6,7 @@ Thank you for your interest in contributing! This document provides guidelines f
 
 ### Reporting Issues
 
-- Use the [GitHub Issues](https://github.com/YOUR_USERNAME/agentforce-qa-framework/issues) page
+- Use the [GitHub Issues](https://github.com/maddykuchi99/agentforce-qa-framework/issues) page
 - Check if the issue already exists before creating a new one
 - Provide as much detail as possible:
   - Framework version
@@ -90,7 +90,7 @@ If modifying `.claude/agents-registry.yml` structure:
 
 ## Questions?
 
-- Open a [GitHub Discussion](https://github.com/YOUR_USERNAME/agentforce-qa-framework/discussions)
+- Open a [GitHub Discussion](https://github.com/maddykuchi99/agentforce-qa-framework/discussions)
 - Tag issues with `question` label
 
 ## License

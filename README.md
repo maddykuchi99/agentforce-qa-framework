@@ -51,7 +51,7 @@ This framework automates **70-80% of repetitive functional testing** for Agentfo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/agentforce-qa-framework.git
+   git clone https://github.com/maddykuchi99/agentforce-qa-framework.git
    cd agentforce-qa-framework
    ```
 
@@ -114,7 +114,7 @@ This framework automates **70-80% of repetitive functional testing** for Agentfo
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/YOUR_USERNAME/agentforce-qa-framework.git
+   git clone https://github.com/maddykuchi99/agentforce-qa-framework.git
    ```
 
 2. **Open your Salesforce project in VS Code/Cursor**
@@ -862,8 +862,8 @@ Built with:
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/agentforce-qa-framework/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/YOUR_USERNAME/agentforce-qa-framework/discussions)
+- **Issues**: [GitHub Issues](https://github.com/maddykuchi99/agentforce-qa-framework/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/maddykuchi99/agentforce-qa-framework/discussions)
 
 ---
 
