@@ -1,0 +1,54 @@
+# Agentforce Agents Registry
+# ---------------------------
+# Lives at: <repo-root>/.claude/agents-registry.yml
+#
+# This file is read by the qa-test-agent and qa-fleet-rollup subagents.
+# Each entry under `agents:` defines one Agentforce agent that QA will test.
+# Add a new agent here when the team builds it; remove when retired.
+
+# Shared defaults — applied to every agent unless overridden on its entry
+defaults:
+  strategy_doc_path: docs/Agentforce_Testing_Strategy.md
+  tier_convention: suffix          # 'suffix' | 'tag' | 'custom'
+  fleet_digest_path: qa-digests/fleet
+  fleet_notification: none   # channel for fleet rollup notifications; set to 'none' to disable
+
+# Per-agent definitions
+agents:
+
+  # Example agent configuration
+  my-service-agent:
+    label: My Service Agent
+    sf_alias: my-org-alias                    # Your Salesforce org alias (from `sf org list`)
+    sf_agent_api_name: My_Service_Agent       # Agent API name in Salesforce
+    bundle_metadata_path: force-app/main/default/genAiPlannerBundles/My_Service_Agent_v1/My_Service_Agent_v1.genAiPlannerBundle
+    digest_path: qa-digests/my-service-agent  # Where test reports will be saved
+    notification: none                        # 'none' or 'slack-channel-name'
+    owner: qa-team                            # Team responsible for this agent
+    schedule: daily                           # Testing frequency
+    topics:
+      # List all testable topics for this agent
+      # Skip system topics like 'topic_selector'
+      - name: order_status
+        label: Order Status
+        action: get_order_status              # Primary action for this topic
+        can_escalate: false
+      - name: returns
+        label: Returns and Exchanges
+        action: check_return_eligibility
+        can_escalate: false
+      - name: knowledge_qna
+        label: Knowledge Q&A
+        action: answer_with_knowledge
+        can_escalate: false
+      - name: escalation
+        label: Escalation
+        action: transfer_to_human
+        can_escalate: true
+
+  # Add more agents as needed
+  # my-second-agent:
+  #   label: My Second Agent
+  #   sf_alias: my-org-alias
+  #   sf_agent_api_name: My_Second_Agent
+  #   ...

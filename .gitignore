@@ -1,0 +1,38 @@
+# QA Digests (generated files)
+qa-digests/
+!qa-digests/.gitkeep
+
+# Claude Code local state
+.claude/state/
+.claude/cache/
+
+# Agent registry (contains org-specific config)
+.claude/agents-registry.yml
+
+# Salesforce metadata (if copying from project)
+force-app/
+
+# Mac
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Node (if adding Node tooling later)
+node_modules/
+dist/
