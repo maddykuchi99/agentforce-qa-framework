@@ -11,44 +11,47 @@ defaults:
   strategy_doc_path: docs/Agentforce_Testing_Strategy.md
   tier_convention: suffix          # 'suffix' | 'tag' | 'custom'
   fleet_digest_path: qa-digests/fleet
-  fleet_notification: none   # channel for fleet rollup notifications; set to 'none' to disable
+  fleet_notification: "#qa-leadership"   # channel for fleet rollup notifications; set to 'none' to disable
 
 # Per-agent definitions
 agents:
 
-  # Example agent configuration
-  my-service-agent:
-    label: My Service Agent
-    sf_alias: my-org-alias                    # Your Salesforce org alias (from `sf org list`)
-    sf_agent_api_name: My_Service_Agent       # Agent API name in Salesforce
-    bundle_metadata_path: force-app/main/default/genAiPlannerBundles/My_Service_Agent_v1/My_Service_Agent_v1.genAiPlannerBundle
-    digest_path: qa-digests/my-service-agent  # Where test reports will be saved
-    notification: none                        # 'none' or 'slack-channel-name'
-    owner: qa-team                            # Team responsible for this agent
-    schedule: daily                           # Testing frequency
+  acc-email-agent:
+    label: ACC Email Agent
+    sf_alias: qa-sandbox             # Update to your actual Salesforce CLI org alias
+    sf_agent_api_name: ACC_Email_Agent
+    # GenAiPlannerBundle metadata file — topics are embedded inside this file
+    bundle_metadata_path: force-app/main/default/genAiPlannerBundles/ACC_Email_Agent.genAiPlannerBundle-meta.xml
+    digest_path: qa-digests/acc-email-agent
+    notification: "#email-agent-qa"
+    owner: customer-service-team
+    schedule: daily
+    jira_csv_path: jira-exports/Email Stories.csv
+    # Testable topics extracted from the bundle (system topics like topic_selector excluded)
     topics:
-      # List all testable topics for this agent
-      # Skip system topics like 'topic_selector'
       - name: order_status
         label: Order Status
-        action: get_order_status              # Primary action for this topic
+        action: send_order_status_reply    # Apex: ACC_EmailOrderStatusResponse
         can_escalate: false
-      - name: returns
-        label: Returns and Exchanges
-        action: check_return_eligibility
+      - name: general_inquiry
+        label: General Inquiry
+        action: none
         can_escalate: false
-      - name: knowledge_qna
-        label: Knowledge Q&A
-        action: answer_with_knowledge
-        can_escalate: false
-      - name: escalation
-        label: Escalation
-        action: transfer_to_human
-        can_escalate: true
 
-  # Add more agents as needed
-  # my-second-agent:
-  #   label: My Second Agent
-  #   sf_alias: my-org-alias
-  #   sf_agent_api_name: My_Second_Agent
-  #   ...
+  # Add additional agents below following the same shape.
+  # Example (update bundle_metadata_path and topics to match the agent's XML):
+  #
+  # acc-chat-agent:
+  #   label: ACC Chat Agent
+  #   sf_alias: qa-sandbox
+  #   sf_agent_api_name: ACC_Chat_Agent
+  #   bundle_metadata_path: force-app/main/default/genAiPlannerBundles/ACC_Chat_Agent.genAiPlannerBundle-meta.xml
+  #   digest_path: qa-digests/acc-chat-agent
+  #   notification: "#chat-agent-qa"
+  #   owner: support-team
+  #   schedule: daily
+  #   topics:
+  #     - name: <topic_developer_name>
+  #       label: <Topic Label>
+  #       action: <action_developer_name or none>
+  #       can_escalate: true/false
