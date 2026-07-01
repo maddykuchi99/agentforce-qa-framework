@@ -571,6 +571,69 @@ Then run the first test to verify everything works.
 claude -p "Use the qa-test-agent for my-new-agent"
 ```
 
+---
+
+### Generating Tests from JIRA Acceptance Criteria (ac-test-builder)
+
+The ac-test-builder generates test cases from JIRA user stories so every test traces back to a business requirement.
+
+**test-set-builder vs ac-test-builder:**
+
+| | test-set-builder | ac-test-builder |
+|---|---|---|
+| **Source** | GenAiPlannerBundle XML | JIRA Acceptance Criteria |
+| **Covers** | What the agent CAN do | What the agent SHOULD do |
+| **Traceability** | Topic-level | JIRA story + AC number |
+| **Run when** | New agent deployed | JIRA stories available |
+
+Run both for complete coverage.
+
+**Prerequisites:**
+1. Export JIRA stories to CSV from your JIRA board
+2. Save the file to `jira-exports/` (e.g. `jira-exports/Email Stories.csv`)
+3. Confirm `.claude/agents-registry.yml` has `jira_csv_path` set for the agent
+
+> `jira-exports/` is excluded from git — every team member must download the CSV locally before running ac-test-builder.
+
+**How it works:**
+
+The ac-test-builder reads the Description field of each JIRA story and looks for Acceptance Criteria in Given/When/Then format.
+
+- **Positive ACs** → T1 Canonical (2 utterances) + T2 Paraphrased (3 utterances)
+- **Negative ACs** → T3 Adversarial (2-3 utterances)
+
+**CLI:**
+```bash
+claude -p "Use the ac-test-builder for my-agent-name"
+```
+
+**IDE:**
+```
+Use the ac-test-builder for my-agent-name
+```
+
+**What gets created:**
+- Test Sets named with `_ac_` prefix to distinguish from metadata-generated sets:
+  - `Order_Management_ac_canonical`
+  - `Order_Management_ac_paraphrased`
+  - `Order_Management_ac_edge`
+- Traceability report at `qa-digests/my-agent/ac-test-build-YYYY-MM-DD.md`
+
+**Example traceability report:**
+
+| Story   | AC   | Type     | Topic            | Tier  | Utterances |
+|---------|------|----------|------------------|-------|------------|
+| ACC-123 | AC-1 | Positive | order_management | T1/T2 | 5          |
+| ACC-123 | AC-3 | Negative | order_management | T3    | 3          |
+| ACC-124 | AC-1 | Positive | knowledge_qna    | T1/T2 | 5          |
+
+**When to use:**
+- New JIRA stories written for a sprint
+- Before UAT to show requirement traceability to stakeholders
+- Always follow with qa-test-agent to execute the new test cases
+
+---
+
 ### Debugging Failures
 
 **IDE:**
