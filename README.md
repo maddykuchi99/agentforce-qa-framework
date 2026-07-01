@@ -4,6 +4,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+## 🚀 New to this framework?
+
+**Start here:** [**Quickstart Guide**](QUICKSTART.md) - Complete walkthrough from git clone to running your first test in 20-30 minutes
+
+---
+
 ## 🎯 Overview
 
 This framework automates **70-80% of repetitive functional testing** for Agentforce agents, freeing QA teams to focus on exploratory testing, UX assessment, and UAT coordination.
@@ -281,6 +287,17 @@ Use the test-set-builder for my-agent-name:
 - Show me what was created
 ```
 
+**Generate test cases from JIRA Acceptance Criteria:**
+```
+Use the ac-test-builder for my-agent-name
+```
+
+Place your JIRA CSV export in `jira-exports/` then run the command above. This will:
+- Parse Positive and Negative ACs from the CSV
+- Generate requirement-specific test utterances
+- Map every test back to its JIRA story for traceability
+- Create Test Sets in Salesforce Testing Center
+
 **Run daily regression:**
 ```
 Run tests for all my agents:
@@ -364,7 +381,22 @@ claude -p "Run the qa-fleet-rollup for today"
    
    **When to use:** When you've just deployed a new agent and need initial test coverage
 
-4. **Agent Registry** (`.claude/agents-registry.yml`)
+4. **ac-test-builder** (`.claude/agents/ac-test-builder.md`)
+   - **Purpose:** Generate test cases from JIRA Acceptance Criteria
+   - Reads a locally downloaded JIRA CSV export from `jira-exports/`
+   - Parses Positive ACs → T1 Canonical (2) + T2 Paraphrased (3) per AC
+   - Parses Negative ACs → T3 Adversarial (2-3) per AC
+   - Writes a traceability report mapping every utterance back to a JIRA story
+   - Complements test-set-builder: metadata covers what the agent CAN do, ACs cover what the agent SHOULD do per business requirements
+   
+   **Usage:**
+   ```bash
+   claude -p "Use the ac-test-builder for my-agent-name"
+   ```
+   
+   **When to use:** After downloading JIRA stories CSV to `jira-exports/` folder
+
+5. **Agent Registry** (`.claude/agents-registry.yml`)
    - Central configuration for all agents
    - Defines topics, actions, and test metadata
 
@@ -382,6 +414,15 @@ claude -p "Run the qa-fleet-rollup for today"
 │  - Reads agent metadata         │
 │  - Generates test utterances    │
 │  - Pushes to Testing Center     │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│  ac-test-builder (optional)     │  ← claude -p "Use the ac-test-builder..."
+│  - Reads JIRA CSV from          │
+│    jira-exports/                │
+│  - Generates AC-mapped          │
+│    utterances with traceability │
 └────────┬────────────────────────┘
          │
          ▼
